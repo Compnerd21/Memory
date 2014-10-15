@@ -1,0 +1,165 @@
+package edu.ncc.memorygame;
+
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.view.View;
+
+
+public class MainActivity extends Activity implements View.OnClickListener{
+
+	private ImageButton[] buttons;
+	private Button reset;
+	private int numClicked;
+	private int[] imageNums;
+	private int[]buttonsClicked;
+	private int pairs = 0;
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+ 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		String name = this.getIntent().getExtras().getString("User");
+		TextView tex = (TextView) findViewById(R.id.welcome_text);
+		tex.setText("Welcome " + name);
+		// create the array to store references to the buttons
+		buttons = new ImageButton[12];
+
+		// get the id of the first button
+		int idIndex = R.id.button0;
+
+		// store the references into the array by cycling through the id indices & set the listener
+		for (int i=0; i<buttons.length; i++) 
+		{
+			buttons[i] = (ImageButton)findViewById(idIndex++);
+			buttons[i].setOnClickListener(this);
+		}
+
+		//get the id's for the images and store 2 of each
+		imageNums = new int[12];
+		imageNums[0] = R.drawable.angry;
+		imageNums[1] = R.drawable.angry;
+		imageNums[2] = R.drawable.blushing;
+		imageNums[3] = R.drawable.blushing;
+		imageNums[4] = R.drawable.crying;
+		imageNums[5] = R.drawable.crying;
+		imageNums[6] = R.drawable.haha;
+		imageNums[7] = R.drawable.haha;
+		imageNums[8] = R.drawable.sad;
+		imageNums[9] = R.drawable.sad;
+		imageNums[10] = R.drawable.smile;
+		imageNums[11] = R.drawable.smile;
+
+		// randomize the values
+		
+		resetBoard();
+
+		reset = (Button)findViewById(R.id.reset_button);
+		reset.setOnClickListener(this);
+
+		
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        ActionBar actionbar = getActionBar();
+        actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionbar.setTitle("Memory Matching");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_reset) {
+            resetBoard();
+            Intent intent = new Intent(this, InputActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+	public void resetBoard()
+	{
+		int r1, r2;
+		int temp;
+		for (int i=0; i<20; i++)
+		{
+			r1 = (int)(Math.random()*12);
+			r2 = (int)(Math.random()*12);
+			temp = imageNums[r1];
+			imageNums[r1] = imageNums[r2];
+			imageNums[r2]= temp;
+		}
+		for(int x = 0; x < 12; x++)
+		{
+			buttons[x].setImageDrawable(getResources().getDrawable(R.drawable.defaultsmile));
+			buttons[x].setEnabled(true);
+		}
+		pairs = 0;
+		numClicked = 0;
+		buttonsClicked = new int[2];
+		
+	}
+	@Override
+	public void onClick(View view) 
+	{
+		if(numClicked == 2)
+		{
+			if(imageNums[buttonsClicked[0]] == imageNums[buttonsClicked[1]] )
+			{
+				buttons[buttonsClicked[0]].setEnabled(false);
+				buttons[buttonsClicked[1]].setEnabled(false);
+				pairs++;
+			}
+			else
+			{
+				buttons[buttonsClicked[0]].setImageDrawable(getResources().getDrawable(R.drawable.defaultsmile));
+				buttons[buttonsClicked[1]].setImageDrawable(getResources().getDrawable(R.drawable.defaultsmile));
+				buttons[buttonsClicked[0]].setEnabled(true);
+				buttons[buttonsClicked[1]].setEnabled(true);
+			}
+			numClicked = 0;
+		}
+		for(int x = 0; x < 12; x++)
+		{
+			if(buttons[x].getId() == view.getId())
+			{
+				buttonsClicked[numClicked] = x;
+				buttons[x].setImageDrawable(getResources().getDrawable(imageNums[x]));
+				buttons[x].setEnabled(false);
+				numClicked ++;
+			}
+		}
+		if(numClicked == 2 && pairs == 5)
+		{
+			if(imageNums[buttonsClicked[0]] == imageNums[buttonsClicked[1]] )
+			{
+				buttons[buttonsClicked[0]].setEnabled(false);
+				buttons[buttonsClicked[1]].setEnabled(false);
+				pairs++;
+			}
+			numClicked = 0;
+		}
+		if (pairs == 6)
+		{
+			Toast.makeText(getApplicationContext(), "You Win", Toast.LENGTH_SHORT).show();
+		}
+		
+	
+	
+	}
+}
