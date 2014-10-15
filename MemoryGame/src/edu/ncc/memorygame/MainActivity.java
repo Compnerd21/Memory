@@ -1,5 +1,6 @@
 package edu.ncc.memorygame;
 
+<<<<<<< HEAD
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +12,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
+=======
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+>>>>>>> 2c89aca332c5f0afb1cafbd619655bbfce27a9d8
 
 
 public class MainActivity extends Activity implements View.OnClickListener{
@@ -20,15 +27,22 @@ public class MainActivity extends Activity implements View.OnClickListener{
 	private int numClicked;
 	private int[] imageNums;
 	private int[]buttonsClicked;
+<<<<<<< HEAD
 	private int pairs = 0;
+=======
+>>>>>>> 2c89aca332c5f0afb1cafbd619655bbfce27a9d8
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
  		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+<<<<<<< HEAD
 		String name = this.getIntent().getExtras().getString("User");
 		TextView tex = (TextView) findViewById(R.id.welcome_text);
 		tex.setText("Welcome " + name);
+=======
+
+>>>>>>> 2c89aca332c5f0afb1cafbd619655bbfce27a9d8
 		// create the array to store references to the buttons
 		buttons = new ImageButton[12];
 
@@ -58,13 +72,31 @@ public class MainActivity extends Activity implements View.OnClickListener{
 		imageNums[11] = R.drawable.smile;
 
 		// randomize the values
+<<<<<<< HEAD
 		
 		resetBoard();
+=======
+		int r1, r2;
+		int temp;
+		for (int i=0; i<20; i++)
+		{
+			r1 = (int)(Math.random()*12);
+			r2 = (int)(Math.random()*12);
+			temp = imageNums[r1];
+			imageNums[r1] = imageNums[r2];
+			imageNums[r2]= temp;
+		}
+>>>>>>> 2c89aca332c5f0afb1cafbd619655bbfce27a9d8
 
 		reset = (Button)findViewById(R.id.reset_button);
 		reset.setOnClickListener(this);
 
+<<<<<<< HEAD
 		
+=======
+		numClicked = 0;
+		buttonsClicked = new int[2];
+>>>>>>> 2c89aca332c5f0afb1cafbd619655bbfce27a9d8
     }
 
 
@@ -72,9 +104,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+<<<<<<< HEAD
         ActionBar actionbar = getActionBar();
         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionbar.setTitle("Memory Matching");
+=======
+>>>>>>> 2c89aca332c5f0afb1cafbd619655bbfce27a9d8
         return true;
     }
 
@@ -84,14 +119,19 @@ public class MainActivity extends Activity implements View.OnClickListener{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+<<<<<<< HEAD
         if (id == R.id.action_reset) {
             resetBoard();
             Intent intent = new Intent(this, InputActivity.class);
             startActivity(intent);
+=======
+        if (id == R.id.action_settings) {
+>>>>>>> 2c89aca332c5f0afb1cafbd619655bbfce27a9d8
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+<<<<<<< HEAD
 	public void resetBoard()
 	{
 		int r1, r2;
@@ -160,6 +200,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
 		}
 		
 	
+=======
+	
+	@Override
+	public void onClick(View view) {
+>>>>>>> 2c89aca332c5f0afb1cafbd619655bbfce27a9d8
 	
 	}
 }

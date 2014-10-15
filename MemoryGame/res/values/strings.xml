@@ -10,5 +10,8 @@
     <string name="button_label">Continue</string>
     <string name="desc">One of the buttons on the Memory board</string>
     <string name="title_activity_user_name">User Name</string>
+<<<<<<< HEAD
     <string name="input">Input Panel</string>
+=======
+>>>>>>> 2c89aca332c5f0afb1cafbd619655bbfce27a9d8
 </resources>
