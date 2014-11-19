@@ -16,8 +16,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
-<<<<<<< HEAD
-           
+
+            
         </activity>
         
         <activity 
@@ -31,13 +31,13 @@
             </intent-filter>
             
             
-=======
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
->>>>>>> 2c89aca332c5f0afb1cafbd619655bbfce27a9d8
+
         </activity>
     </application>
 
